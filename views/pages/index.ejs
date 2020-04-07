@@ -2,7 +2,19 @@
 
 <h1>Tweets over verveling</h1>
 
-<div id="chat"></div>
+<div>
+      <form id="addUsername" action="">
+        <input id="username" type="text" /><button>Send</button>
+      </form>
+</div>
+
+<div id="chatbox">
+    <ul class="messages"></ul>
+</div>
+
+<form id="chat">
+    <input id="m" autocomplete="off" /><button id="send">Send</button>
+</form>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/main.js"></script>
