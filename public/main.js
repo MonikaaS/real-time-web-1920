@@ -1,12 +1,12 @@
 const socket = io();
 const tweets = document.getElementById('tweets')
 
-socket.on('tweet', function (data) {
+socket.on('chat', function (data) {
     console.log(data.text)
     console.log(data.lang)
 
-    const newTweet = document.createElement("li");
-    newTweet.textContent = data.text + ' ' + data.lang;
+    const newMessage = document.createElement("li");
+    newMessage.textContent = data;
 
     tweets.appendChild(newTweet);
 })
