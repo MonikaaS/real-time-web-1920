@@ -41,6 +41,7 @@ socket.on("chat message", function (msg) {
 socket.on("server message", function (serverMsg) {
   const newServerMessage = document.createElement("li");
   newServerMessage.textContent = serverMsg;
+  newServerMessage.classList.add("serverMessage");
   message.appendChild(newServerMessage);
 });
 
@@ -50,6 +51,7 @@ socket.on("command message", function (command) {
 
   const commandMessage = document.createElement("li");
   commandMessage.textContent = command;
+  commandMessage.classList.add("commandMessage");
   message.appendChild(commandMessage);
 });
 

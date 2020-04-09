@@ -1,27 +1,36 @@
 <!doctype html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu+2|Roboto+Slab&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
 
 <h1>Animal crossing chat</h1>
 
-<div>
+
+  <div>
       <form id="addUsername" action="">
+      <h2>add username</h2>
         <input id="username" type="text" /><button>Send</button>
       </form>
-</div>
+  </div>
+
+  <div class="flexbox">
 
 <div>
-<div id="chatbox">
-    <ul class="messages"></ul>
-</div>
+  <div id="chatbox">
+      <ul class="messages"></ul>
+  </div>
 
-<form id="chat">
-    <input id="m" autocomplete="off" /><button id="send">Send</button>
-</form>
+  <form id="chat">
+      <input id="m" autocomplete="off" /><button id="send">Send</button>
+  </form>
 </div>
 
   <div id="turnips">
-  <h2>Turnip Board:</h2>
-  <ul class="turnipList"></ul>
+    <h2>Turnip prices board:</h2>
+    <ul class="turnipList"></ul>
   </div>
+</div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/main.js"></script>

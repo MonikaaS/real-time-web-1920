@@ -37,11 +37,11 @@ io.sockets.on("connection", function (socket) {
     //send welcome message
     socket.emit(
       "server message",
-      `SERVER: Welcome ${username} !!!`
+      `Welcome ${username}!!! commands: !random & !turnips [your price here]`
     );
 
     // Show everyone else who has joined
-    socket.broadcast.emit('server message', `SERVER: User ${username} connected.`);
+    socket.broadcast.emit('server message', `User ${username} connected.`);
   });
 
   //send message
@@ -62,17 +62,17 @@ io.sockets.on("connection", function (socket) {
         io.emit("command message", advice.text);
       }
     );
-
-    io.emit("command message", `er is een command gebruikt`);
   });
 
   //send turnip to board
   socket.on("turnip board", function (value) {
-    io.emit("turnip board", socket.username + " " + value);
+    io.emit("turnip board", socket.username + " : " + value + " bells");
   });
 
   socket.on("disconnect", function () {
     console.log("user disconnected");
+
+    socket.broadcast.emit('server message', `User ${socket.username} left the chat :(`);
   });
 });
 
