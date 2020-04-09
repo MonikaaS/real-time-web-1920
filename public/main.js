@@ -3,6 +3,7 @@ const form = document.querySelector("#chat");
 const addUsername = document.querySelector("#addUsername");
 const username = document.querySelector("#username");
 const message = document.querySelector(".messages");
+const turnipList = document.querySelector(".turnipList");
 
 //add username
 addUsername.addEventListener("submit", function (e) {
@@ -15,13 +16,12 @@ addUsername.addEventListener("submit", function (e) {
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  console.log(m.value)
+  if (m.value.includes("!turnips")) {
+    let value = m.value.replace(/!turnips /g, '');
 
-  if (m.value.includes("!villager")) {
-    let villager = m.value.replace(/!villager /g, '');
-
-    console.log(villager)
-    socket.emit("fetch villager", message);
+    socket.emit("turnip board", value);
+  } else if (m.value.includes("!random")) {
+    socket.emit("fetch advice", m.value);
   } else {
     socket.emit("chat message", m.value);
   }
@@ -46,13 +46,17 @@ socket.on("server message", function (serverMsg) {
 
 //show command message
 socket.on("command message", function (command) {
+  console.log(command)
+
   const commandMessage = document.createElement("li");
   commandMessage.textContent = command;
   message.appendChild(commandMessage);
 });
 
-//show command message
-socket.on("tweet", function (tweet) {
-  console.log(tweet)
-  console.log('hij doet t')
+//show turnip board
+socket.on("turnip board", function (turnipValue) {
+
+  const userTurnips = document.createElement("li");
+  userTurnips.textContent = turnipValue;
+  turnipList.appendChild(userTurnips);
 });

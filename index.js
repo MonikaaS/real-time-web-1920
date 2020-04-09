@@ -1,9 +1,18 @@
 const express = require("express");
 const app = express();
 const http = require("http").Server(app);
+const Twit = require("twit");
 const io = require("socket.io")(http);
 const bodyParser = require("body-parser");
 require("dotenv").config();
+
+const T = new Twit({
+  consumer_key: process.env.consumer_key,
+  consumer_secret: process.env.consumer_secret,
+  access_token: process.env.access_token,
+  access_token_secret: process.env.access_token_secret,
+  strictSSL: true, // optional - requires SSL certificates to be valid.
+});
 
 app.use(
   bodyParser.urlencoded({
@@ -40,9 +49,26 @@ io.sockets.on("connection", function (socket) {
     io.emit("chat message", socket.username + ": " + msg);
   });
 
-  //fetch the data when a user uses a command
-  socket.on("fetch villager", function () {
+  //fetch advice data when a user uses !random command
+  socket.on("fetch advice", function (value) {
+    T.get(
+      "statuses/user_timeline", {
+        screen_name: "animalcrossing",
+        include_rts: false,
+        count: 20
+      },
+      function (err, data, response) {
+        const advice = data[Math.floor(Math.random() * data.length)];
+        io.emit("command message", advice.text);
+      }
+    );
+
     io.emit("command message", `er is een command gebruikt`);
+  });
+
+  //send turnip to board
+  socket.on("turnip board", function (value) {
+    io.emit("turnip board", socket.username + " " + value);
   });
 
   socket.on("disconnect", function () {
