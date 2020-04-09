@@ -8,13 +8,19 @@
 ### install
 
 clone the repo:
-`git clone https://github.com/MonikaaS/real-time-web-1920.git`
+```
+git clone https://github.com/MonikaaS/real-time-web-1920.git
+```
 
 navigate to the repo
-`cd real-time-web-1920`
+```
+cd real-time-web-1920
+```
 
 install
-`npm install`
+```
+npm install
+```
 
 run
 ```
