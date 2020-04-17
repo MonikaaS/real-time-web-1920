@@ -6,7 +6,7 @@
 
 ### animal crossing chat
 
-![met afbeelding](docs/img/chatapp.png)
+![met afbeelding](docs/img/turnip-exchange-data-life-cycle-sketch.jpg)
 
 ### install
 
@@ -35,22 +35,3 @@ npm run dev [to run nodemon]
 or
 npm start
 ```
-
-### features
-
-- add your turnip value to the board
-- search for a random advice tweet from the animal crossing twitter
-
-### tech
-
-**client :**
-
-- fill in your username
-- chat messages
-- chat commands
-
-**server :**
-
-- message: welcome message!
-- message: a person joined the chat
-- message: user left the chat
