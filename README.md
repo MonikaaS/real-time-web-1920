@@ -4,9 +4,10 @@
 
 ## chat app
 
-### animal crossing chat
+### animal crossing turnip exchange
 
 ![met afbeelding](docs/img/turnip-exchange-data-life-cycle-sketch.jpg)
+(life cycle moet nog worden aangepast)
 
 ### install
 
