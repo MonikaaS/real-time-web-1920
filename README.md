@@ -2,10 +2,11 @@
 
 [demo link](https://monikaas-real-time-web.herokuapp.com/)
 
-## chat app
+## animal crossing turnip exchange
+Applicatie waar animal crossing gebruikers hun turnips kunnen ruilen en elkaar kunnen bezoeken.
 
-### animal crossing turnip exchange
 
+### Data life cycle
 ![met afbeelding](docs/img/turnip-exchange-data-life-cycle-sketch.jpg)
 (life cycle moet nog worden aangepast)
 
