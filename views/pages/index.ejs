@@ -1,36 +1,52 @@
 <!doctype html>
 <head>
-  <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu+2|Roboto+Slab&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Baloo+Bhaina+2&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
-<h1>Animal crossing chat</h1>
+<header>
+<h1>Animal Crossing Turnip Exchange</h1>
 
+<div class="flex">
+ <button id="add">add island</button>
+</div>
 
-  <div>
-      <form id="addUsername" action="">
-      <h2>add username</h2>
-        <input id="username" type="text" /><button>Send</button>
+</header>
+  <div class="form">
+    <form id="addIsland" action="/">
+      <h1>Add Island</h1>
+        <label> Island name:
+          <input type="text" id="IslandName" autocomplete="off" required minlength="1" maxlength="10">
+        </label>
+
+        <label> Turnip Price:
+          <input type="text" id="TurnipPrice" autocomplete="off" required minlength="1" maxlength="3">
+        </label> 
+
+        <label> Fruit Type:
+          <input type="text" id="fruit" autocomplete="off" required minlength="1" maxlength="10">
+        </label> 
+
+        <label> Favorite Villager:
+          <input type="text" id="villager" autocomplete="off" required minlength="1" maxlength="15">
+        </label> 
+
+        <label> Dodo code:
+          <input type="text" id="dodoCode" autocomplete="off" required minlength="5" maxlength="5">
+        </label> 
+        <div class="submitBtn">
+        <button>Send</button>
+        </div>
       </form>
   </div>
 
-  <div class="flexbox">
-
-<div>
-  <div id="chatbox">
-      <ul class="messages"></ul>
+<div class="flex">
+  <div id="dailyMessage"> 
   </div>
 
-  <form id="chat">
-      <input id="m" autocomplete="off" /><button id="send">Send</button>
-  </form>
-</div>
-
-  <div id="turnips">
-    <h2>Turnip prices board:</h2>
-    <ul class="turnipList"></ul>
+  <div id="feed">
   </div>
-</div>
 
+  </div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/main.js"></script>

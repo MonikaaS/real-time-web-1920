@@ -1,64 +1,72 @@
 const socket = io();
-const form = document.querySelector("#chat");
-const addUsername = document.querySelector("#addUsername");
-const username = document.querySelector("#username");
-const message = document.querySelector(".messages");
-const turnipList = document.querySelector(".turnipList");
+const addBtn = document.querySelector("#add");
+const addIsland = document.querySelector("#addIsland");
+const feed = document.getElementById('feed')
+const dailyMessage = document.getElementById('dailyMessage')
 
-//add username
-addUsername.addEventListener("submit", function (e) {
-  e.preventDefault();
-  socket.emit("newuser", username.value);
-  addUsername.parentNode.removeChild(addUsername);
+addBtn.addEventListener("click", function (e) {
+  console.log('click!')
+  document.querySelector(".form").classList.toggle("visible");;
 });
 
-// get message value
-form.addEventListener("submit", function (e) {
+//add Island info
+addIsland.addEventListener("submit", function (e) {
   e.preventDefault();
 
-  if (m.value.includes("!turnips")) {
-    let value = m.value.replace(/!turnips /g, '');
-
-    socket.emit("turnip board", value);
-  } else if (m.value.includes("!random")) {
-    socket.emit("fetch advice", m.value);
-  } else {
-    socket.emit("chat message", m.value);
+  let data = {
+    islandName: document.querySelector('#IslandName').value,
+    turnipPrice: document.querySelector('#TurnipPrice').value,
+    fruitType: document.querySelector('#fruit').value,
+    villager: document.querySelector('#villager').value,
+    dodoCode: document.querySelector('#dodoCode').value,
+    time: new Date().toLocaleString()
   }
-  m.value = "";
-  return false;
+
+  document.querySelector(".form").classList.toggle("visible");;
+  socket.emit("turnip message", data);
 });
 
-//show message
-socket.on("chat message", function (msg) {
-  const newMessage = document.createElement("li");
+socket.on('test', function (data) {
+  let html = `
+                <div class='daily'>
+                <li>${data}</li>
+                </div>`
+  dailyMessage.insertAdjacentHTML('afterbegin', html)
+})
 
-  newMessage.textContent = msg;
-  message.appendChild(newMessage);
-});
+socket.on("turnip message", function (data) {
+  let html = `
+                <div class='card'>
+                <li>Island : ${data.islandName}</li>
+                <li>Date: ${data.time}</li>
+                <li>Turnip price: ${data.turnipPrice}</li>
+                </div>`
+  feed.insertAdjacentHTML('afterbegin', html)
+})
 
-//show server message
-socket.on("server message", function (serverMsg) {
-  const newServerMessage = document.createElement("li");
-  newServerMessage.textContent = serverMsg;
-  newServerMessage.classList.add("serverMessage");
-  message.appendChild(newServerMessage);
-});
+socket.on("today", function (data) {
+  let html = `
+                <div class='card'>
+                <li>Island: ${data.islandName}</li>
+                <li>Date: ${data.time}</li>
+                <li>Turnip price: ${data.turnipPrice}</li>
+                </div>`
+  feed.insertAdjacentHTML('afterbegin', html)
+})
 
-//show command message
-socket.on("command message", function (command) {
-  console.log(command)
 
-  const commandMessage = document.createElement("li");
-  commandMessage.textContent = command;
-  commandMessage.classList.add("commandMessage");
-  message.appendChild(commandMessage);
-});
+socket.on("turnip board", function (data) {
+  console.log(data)
 
-//show turnip board
-socket.on("turnip board", function (turnipValue) {
+  feed.innerHTML = ''
 
-  const userTurnips = document.createElement("li");
-  userTurnips.textContent = turnipValue;
-  turnipList.appendChild(userTurnips);
+  data.forEach(function (data) {
+    let html = `
+                <div class='card'>
+                <li>Island: ${data.islandName}</li>
+                <li>Date: ${data.time}</li>
+                <li>Turnip price: ${data.turnipPrice}</li>
+                </div>`
+    feed.insertAdjacentHTML('beforeend', html)
+  })
 });
