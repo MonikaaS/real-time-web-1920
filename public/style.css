@@ -1,38 +1,38 @@
 @font-face {
-    font-family: 'FinkHeavy';
-    src: url('./FinkHeavy-Regular.ttf');
+  font-family: "FinkHeavy";
+  src: url("./FinkHeavy-Regular.ttf");
 }
 
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background-color: aquamarine;
-    font-family: 'Baloo Bhaina 2', cursive;
+  background-color: aquamarine;
+  font-family: "Baloo Bhaina 2", cursive;
 }
 
 h1 {
-    text-align: center;
-    color: rgb(58, 86, 248);
-    font-family: 'FinkHeavy', serif;
-    margin: 1em;
+  text-align: center;
+  color: rgb(58, 86, 248);
+  font-family: "FinkHeavy", serif;
+  margin: 1em;
 }
 
 .flex {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 h2 {
-    color: white;
-    font-family: 'Roboto Slab', serif;
+  color: white;
+  font-family: "Roboto Slab", serif;
 }
 
 li {
-    margin-top: 4px;
-    list-style: none;
+  margin-top: 4px;
+  list-style: none;
 }
 
 /* #addUsername {
@@ -45,112 +45,120 @@ li {
     text-align: center;
 } */
 header {
-    margin-bottom: 2em;
+  margin-bottom: 2em;
 }
 
 .card {
-    background-color: white;
-    width: 20em;
-    border-radius: 5px;
-    margin: 1em;
-    padding: 1em;
+  display: flex;
+  background-color: white;
+  width: 20em;
+  height: 10em;
+  border-radius: 5px;
+  margin: 1em;
+  padding: 1em;
+}
+
+img {
+  margin-left: 1em;
+  display: inline-block;
+  height: 80%;
 }
 
 .form {
-    background-color: oldlace;
-    display: flex;
-    justify-content: center;
-    width: 50%;
-    margin: auto;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out;
+  background-color: oldlace;
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  margin: auto;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
 }
 
 .visible {
-    width: 50%;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    max-height: 50em;
-    overflow: hidden;
-    transition: max-height 0.6s ease-in;
+  width: 50%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  max-height: 50em;
+  overflow: hidden;
+  transition: max-height 0.6s ease-in;
 }
 
-label.input[type="radio"]:checked~div.form {
-    display: block;
+label.input[type="radio"]:checked ~ div.form {
+  display: block;
 }
 
 label {
-    display: block;
-    width: 50%;
-    margin-left: 18%;
+  display: block;
+  width: 50%;
+  margin-left: 18%;
 }
 
 .daily {
-    position: sticky;
-    top: 0em;
-    left: -10em;
-    background-color: moccasin;
-    width: 15em;
-    border-radius: 5px;
-    margin: 1em;
+  position: sticky;
+  top: 0em;
+  left: -10em;
+  background-color: moccasin;
+  width: 15em;
+  border-radius: 5px;
+  margin: 1em;
 }
 
 #feed {
-    display: flex;
-    justify-content: start;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
 }
 
 .flex {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .flex2 {
-    display: flex;
-    justify-content: start;
+  display: flex;
+  justify-content: start;
 }
 
 .submitBtn {
-    width: 50%;
-    margin: auto;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    text-align: center
+  width: 50%;
+  margin: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  text-align: center;
 }
 
 button {
-    background-color: rgb(58, 86, 248);
-    width: 140px;
-    border: 0;
-    border-radius: 30px;
-    padding: 10px 0;
-    margin: 1em;
-    text-align: center;
-    color: #fff;
-    font-weight: bold;
-    height: 40px;
+  background-color: rgb(58, 86, 248);
+  width: 140px;
+  border: 0;
+  border-radius: 30px;
+  padding: 10px 0;
+  margin: 1em;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  height: 40px;
 }
 
 button:focus {
-    outline: 0;
+  outline: 0;
 }
 
 button:active {
-    background-color: rgb(119, 136, 233);
+  background-color: rgb(119, 136, 233);
 }
 
 input[type="text"],
 #m {
-    display: inline-block;
-    width: 250px;
-    height: 40px;
-    box-sizing: border-box;
-    outline: none;
-    border: 1px solid lightgray;
-    border-radius: 3px;
-    padding: 10px 10px 10px 100px;
-    transition: all 0.1s ease-out;
+  display: inline-block;
+  width: 250px;
+  height: 40px;
+  box-sizing: border-box;
+  outline: none;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  padding: 10px 10px 10px 100px;
+  transition: all 0.1s ease-out;
 }

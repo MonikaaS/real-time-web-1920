@@ -3,6 +3,7 @@ const addBtn = document.querySelector("#add");
 const addIsland = document.querySelector("#addIsland");
 const feed = document.getElementById("feed");
 const dailyMessage = document.getElementById("dailyMessage");
+const heart = document.querySelectorAll(".heart");
 
 addBtn.addEventListener("click", function (e) {
   console.log("click!");
@@ -41,10 +42,14 @@ socket.on("turnip message", function (data) {
   console.log(data);
   let html = `
                 <div class='card'>
+                <div>
                 <li>Island : ${data.islandName}</li>
                 <li>Date: ${data.time}</li>
                 <li>Turnip price: ${data.turnipPrice}</li>
-                </div>`;
+                </div>
+                <img src="${data.villagerImage}" alt="Girl in a jacket"
+                </div>
+                `;
   feed.insertAdjacentHTML("afterbegin", html);
 });
 
@@ -56,9 +61,12 @@ socket.on("turnip board", function (data) {
   data.forEach(function (data) {
     let html = `
                 <div class='card'>
+                <div>
                 <li>Island: ${data.islandName}</li>
                 <li>Date: ${data.time}</li>
                 <li>Turnip price: ${data.turnipPrice}</li>
+                </div>
+                <img src="${data.villagerImage}" alt="Girl in a jacket"
                 </div>`;
     feed.insertAdjacentHTML("beforeend", html);
   });
