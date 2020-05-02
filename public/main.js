@@ -23,7 +23,7 @@ addIsland.addEventListener("submit", function (e) {
   };
 
   document.querySelector(".form").classList.toggle("visible");
-  socket.emit("turnip message", data);
+  socket.emit("get data", data);
 });
 
 socket.on("test", function (data) {

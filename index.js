@@ -32,7 +32,7 @@ io.sockets.on("connection", function (socket) {
   //   .then((data) => socket.emit("test", data))
   //   .catch((error) => console.error("Error:", error));
 
-  socket.on("turnip message", function (data) {
+  socket.on("get data", function (data) {
     fetch(
       "https://nookipedia.com/api/villager/" +
         data.villager +
