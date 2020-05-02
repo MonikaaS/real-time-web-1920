@@ -89,7 +89,8 @@ label {
 
 .daily {
     position: sticky;
-    top: 0;
+    top: 0em;
+    left: -10em;
     background-color: moccasin;
     width: 15em;
     border-radius: 5px;
@@ -104,7 +105,12 @@ label {
 
 .flex {
     display: flex;
-    justify-self: start;
+    justify-content: center;
+}
+
+.flex2 {
+    display: flex;
+    justify-content: start;
 }
 
 .submitBtn {
