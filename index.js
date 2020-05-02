@@ -59,6 +59,13 @@ io.sockets.on("connection", function (socket) {
 
   socket.emit("turnip board", history);
 
+  socket.on("private waiting room", function (data) {
+    socket.join(data.dodoCode);
+    io.sockets
+      .in(data.dodoCode)
+      .emit("res", { msg: "user has joined" + data.name });
+  });
+
   socket.on("disconnect", function () {
     console.log("someone disconnected");
   });

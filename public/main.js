@@ -3,10 +3,8 @@ const addBtn = document.querySelector("#add");
 const addIsland = document.querySelector("#addIsland");
 const feed = document.getElementById("feed");
 const dailyMessage = document.getElementById("dailyMessage");
-const heart = document.querySelectorAll(".heart");
 
 addBtn.addEventListener("click", function (e) {
-  console.log("click!");
   document.querySelector(".form").classList.toggle("visible");
 });
 
@@ -27,8 +25,9 @@ addIsland.addEventListener("submit", function (e) {
   socket.emit("get data", data);
 });
 
+const joinBtn = document.querySelectorAll(".joinBtn");
+
 socket.on("test", function (data) {
-  console.log(data);
   let html = `
                 <div class='daily'>
                 <p>${data}</p>
@@ -39,7 +38,6 @@ socket.on("test", function (data) {
 });
 
 socket.on("turnip message", function (data) {
-  console.log(data);
   let html = `
                 <div class='card'>
                 <div>
@@ -47,15 +45,14 @@ socket.on("turnip message", function (data) {
                 <li>Date: ${data.time}</li>
                 <li>Turnip price: ${data.turnipPrice}</li>
                 </div>
-                <img src="${data.villagerImage}" alt="Girl in a jacket"
+                <img src="${data.villagerImage}" alt="Girl in a jacket">
+                <button value="${data.dodoCode}" name="${data.islandName}" class="joinBtn">join room"</button>
                 </div>
                 `;
   feed.insertAdjacentHTML("afterbegin", html);
 });
 
 socket.on("turnip board", function (data) {
-  console.log(data);
-
   feed.innerHTML = "";
 
   data.forEach(function (data) {
@@ -66,8 +63,23 @@ socket.on("turnip board", function (data) {
                 <li>Date: ${data.time}</li>
                 <li>Turnip price: ${data.turnipPrice}</li>
                 </div>
-                <img src="${data.villagerImage}" alt="Girl in a jacket"
+                <img src="${data.villagerImage}" alt="Girl in a jacket">
+                <button value="${data.dodoCode}" name="${data.dodoCode}" class="joinBtn">join room</button>
                 </div>`;
     feed.insertAdjacentHTML("beforeend", html);
   });
+});
+
+document.querySelector("body").addEventListener("click", function (event) {
+  if (event.target.className === "joinBtn") {
+    console.log(event.target.value + " " + event.target.name);
+    socket.emit("private waiting room", {
+      dodoCode: event.target.value,
+      name: event.target.name,
+    });
+  }
+});
+
+socket.on("res", function (data) {
+  console.log(data);
 });
