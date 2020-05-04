@@ -22,7 +22,6 @@ app.get("/", function (req, res) {
 });
 
 let history = [];
-let waiting;
 
 const dailyMessage = ioClient(
   "https://nookipedia.com/api/today/?api_key=" + KEY
@@ -36,7 +35,6 @@ const dailyMessage = ioClient(
 
 io.sockets.on("connection", function (socket) {
   console.log("someone connected");
-
   //socket.emit("test", "joe joe");
 
   fetch("https://nookipedia.com/api/today/?api_key=" + KEY)
@@ -71,11 +69,30 @@ io.sockets.on("connection", function (socket) {
 
   socket.emit("turnip board", history);
 
+  socket.on("dodocode room", function (data) {
+    let room = data.dodoCode + "showcode";
+    socket.join(room);
+    io.sockets.in(room).emit("dodocode room", data);
+  });
+
   socket.on("join waiting room", function (data) {
     let room = data.dodoCode;
     socket.join(room);
     io.sockets.in(room).emit("waiting room", data);
-    //console.log(io.sockets.adapter.rooms[data.dodoCode].length);
+
+    let clients = [];
+    for (var i in io.sockets.adapter.rooms[data.dodoCode].sockets) {
+      clients.push(io.sockets.adapter.nsp.connected[i]);
+    }
+
+    if (io.sockets.adapter.rooms[room].length > 2) {
+      clients[0].leave(room);
+      clients[1].leave(room);
+      clients[0].join(room + "showcode");
+      clients[1].join(room + "showcode");
+
+      io.sockets.in(room + "showcode").emit("dodocode room", data);
+    }
   });
 
   socket.on("disconnect", function () {

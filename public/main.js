@@ -27,7 +27,7 @@ addIsland.addEventListener("submit", function (e) {
   document.querySelector(".form").classList.toggle("visible");
   socket.emit("add data", data);
 
-  socket.emit("join waiting room", {
+  socket.emit("dodocode room", {
     dodoCode: data.dodoCode,
     name: data.islandName,
   });
@@ -102,6 +102,13 @@ document.querySelector("body").addEventListener("click", function (event) {
 socket.on("waiting room", function (data) {
   const h1 = document.createElement("h1");
   waitingroom.style.display = "block";
+  dodoCodeShow.textContent = "Please wait";
+  h1.textContent = data.name + " waiting room";
+});
+
+socket.on("dodocode room", function (data) {
+  const h1 = document.createElement("h1");
+  waitingroom.style.display = "block";
   dodoCodeShow.textContent = data.dodoCode;
-  h1.textContent = data.msg;
+  h1.textContent = data.name;
 });
