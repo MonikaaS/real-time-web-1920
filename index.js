@@ -85,13 +85,29 @@ io.sockets.on("connection", function (socket) {
       clients.push(io.sockets.adapter.nsp.connected[i]);
     }
 
-    if (io.sockets.adapter.rooms[room].length > 2) {
-      clients[0].leave(room);
-      clients[1].leave(room);
-      clients[0].join(room + "showcode");
-      clients[1].join(room + "showcode");
+    if (io.sockets.adapter.rooms[room + "showcode"].length < 3) {
+      clients[0].leave(data.dodoCode);
+      clients[0].join(data.dodoCode + "showcode");
 
       io.sockets.in(room + "showcode").emit("dodocode room", data);
+    }
+  });
+
+  socket.on("leave room", function (data) {
+    socket.leave(data.dodoCode + "showcode");
+
+    if (io.sockets.adapter.rooms[data.dodoCode] != undefined) {
+      let clients = [];
+      for (var i in io.sockets.adapter.rooms[data.dodoCode].sockets) {
+        clients.push(io.sockets.adapter.nsp.connected[i]);
+      }
+
+      if (io.sockets.adapter.rooms[data.dodoCode + "showcode"].length < 3) {
+        clients[0].leave(data.dodoCode);
+        clients[0].join(data.dodoCode + "showcode");
+
+        io.sockets.in(data.dodoCode + "showcode").emit("dodocode room", data);
+      }
     }
   });
 

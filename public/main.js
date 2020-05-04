@@ -108,7 +108,16 @@ socket.on("waiting room", function (data) {
 
 socket.on("dodocode room", function (data) {
   const h1 = document.createElement("h1");
+  const leaveBtn = document.createElement("button");
   waitingroom.style.display = "block";
   dodoCodeShow.textContent = data.dodoCode;
   h1.textContent = data.name;
+  leaveBtn.textContent = "leave room";
+  leaveBtn.className = "leave button";
+
+  waitingroom.appendChild(h1);
+  waitingroom.appendChild(leaveBtn);
+  leaveBtn.addEventListener("click", function (event) {
+    socket.emit("leave room", data);
+  });
 });
