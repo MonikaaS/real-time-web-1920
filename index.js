@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
+const ioClient = require("socket.io-client");
 const bodyParser = require("body-parser");
 const fetch = require("node-fetch");
 require("dotenv").config();
@@ -21,18 +22,29 @@ app.get("/", function (req, res) {
 });
 
 let history = [];
+let waiting;
+
+const dailyMessage = ioClient(
+  "https://nookipedia.com/api/today/?api_key=" + KEY
+);
+
+// console.log(
+//   dailyMessage.on("event occured", function (event) {
+//     console.log(event);
+//   })
+// );
 
 io.sockets.on("connection", function (socket) {
   console.log("someone connected");
 
-  socket.emit("test", "joe joe");
+  //socket.emit("test", "joe joe");
 
-  // fetch("https://nookipedia.com/api/today/?api_key=" + KEY)
-  //   .then((res) => res.json())
-  //   .then((data) => socket.emit("test", data))
-  //   .catch((error) => console.error("Error:", error));
+  fetch("https://nookipedia.com/api/today/?api_key=" + KEY)
+    .then((res) => res.json())
+    .then((data) => socket.emit("test", data))
+    .catch((error) => console.error("Error:", error));
 
-  socket.on("get data", function (data) {
+  socket.on("add data", function (data) {
     fetch(
       "https://nookipedia.com/api/villager/" +
         data.villager +
@@ -59,11 +71,11 @@ io.sockets.on("connection", function (socket) {
 
   socket.emit("turnip board", history);
 
-  socket.on("private waiting room", function (data) {
-    socket.join(data.dodoCode);
-    io.sockets
-      .in(data.dodoCode)
-      .emit("res", { msg: "user has joined" + data.name });
+  socket.on("join waiting room", function (data) {
+    let room = data.dodoCode;
+    socket.join(room);
+    io.sockets.in(room).emit("waiting room", data);
+    //console.log(io.sockets.adapter.rooms[data.dodoCode].length);
   });
 
   socket.on("disconnect", function () {

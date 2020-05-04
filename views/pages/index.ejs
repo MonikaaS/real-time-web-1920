@@ -12,6 +12,17 @@
 </div>
 
 </header>
+<div class="flex">
+    <form id="subsribe" action="/">
+        <label> Subscribe to turnips above:
+          <input type="text" id="turnipAmount" autocomplete="off" required minlength="1" maxlength="10">
+        </label>
+
+        <div class="submitBtn">
+        <button>Send</button>
+        </div>
+      </form>
+      
   <div class="form">
     <form id="addIsland" action="/">
       <h1>Add Island</h1>
@@ -39,6 +50,7 @@
         </div>
       </form>
   </div>
+  </div>
 
 <div class="flex2">
   <div id="dailyMessage"> 
@@ -48,5 +60,10 @@
   </div>
 
   </div>
+
+  <div class="waitingroom">
+    <h1 class="dodoCodeShow"></h1>
+  </div>
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="/main.js"></script>

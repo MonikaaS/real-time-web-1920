@@ -3,6 +3,9 @@ const addBtn = document.querySelector("#add");
 const addIsland = document.querySelector("#addIsland");
 const feed = document.getElementById("feed");
 const dailyMessage = document.getElementById("dailyMessage");
+const daily = document.querySelector(".daily");
+const waitingroom = document.querySelector(".waitingroom");
+const dodoCodeShow = document.querySelector(".dodoCodeShow");
 
 addBtn.addEventListener("click", function (e) {
   document.querySelector(".form").classList.toggle("visible");
@@ -22,19 +25,32 @@ addIsland.addEventListener("submit", function (e) {
   };
 
   document.querySelector(".form").classList.toggle("visible");
-  socket.emit("get data", data);
+  socket.emit("add data", data);
+
+  socket.emit("join waiting room", {
+    dodoCode: data.dodoCode,
+    name: data.islandName,
+  });
 });
 
 const joinBtn = document.querySelectorAll(".joinBtn");
 
 socket.on("test", function (data) {
-  let html = `
-                <div class='daily'>
-                <p>${data}</p>
-                <li>${data.events}</li>
-                <img src="${data.villager_images}" alt="Girl in a jacket">
-                </div>`;
+  console.log(data);
+  let villagerimage = data.villager_images;
+  //let image;
+
+  let html = `<h2>Today's Message:</h2>
+                <p>${data.message}</p>
+                <li>${data.events}</li>`;
   dailyMessage.insertAdjacentHTML("afterbegin", html);
+
+  villagerimage.forEach(function (data) {
+    image = document.createElement("img");
+    image.src = data.toString();
+    console.log(image.src);
+    dailyMessage.appendChild(image);
+  });
 });
 
 socket.on("turnip message", function (data) {
@@ -45,7 +61,7 @@ socket.on("turnip message", function (data) {
                 <li>Date: ${data.time}</li>
                 <li>Turnip price: ${data.turnipPrice}</li>
                 </div>
-                <img src="${data.villagerImage}" alt="Girl in a jacket">
+                <img class="cardImg" src="${data.villagerImage}" alt="Girl in a jacket">
                 <button value="${data.dodoCode}" name="${data.islandName}" class="joinBtn">join room"</button>
                 </div>
                 `;
@@ -55,6 +71,8 @@ socket.on("turnip message", function (data) {
 socket.on("turnip board", function (data) {
   feed.innerHTML = "";
 
+  console.log(data);
+
   data.forEach(function (data) {
     let html = `
                 <div class='card'>
@@ -63,8 +81,8 @@ socket.on("turnip board", function (data) {
                 <li>Date: ${data.time}</li>
                 <li>Turnip price: ${data.turnipPrice}</li>
                 </div>
-                <img src="${data.villagerImage}" alt="Girl in a jacket">
-                <button value="${data.dodoCode}" name="${data.dodoCode}" class="joinBtn">join room</button>
+                <img class="cardImg" src="${data.villagerImage}" alt="Girl in a jacket">
+                <button value="${data.dodoCode}" name="${data.islandName}" class="joinBtn">join room</button>
                 </div>`;
     feed.insertAdjacentHTML("beforeend", html);
   });
@@ -72,14 +90,18 @@ socket.on("turnip board", function (data) {
 
 document.querySelector("body").addEventListener("click", function (event) {
   if (event.target.className === "joinBtn") {
-    console.log(event.target.value + " " + event.target.name);
-    socket.emit("private waiting room", {
+    console.log(event.target);
+
+    socket.emit("join waiting room", {
       dodoCode: event.target.value,
       name: event.target.name,
     });
   }
 });
 
-socket.on("res", function (data) {
-  console.log(data);
+socket.on("waiting room", function (data) {
+  const h1 = document.createElement("h1");
+  waitingroom.style.display = "block";
+  dodoCodeShow.textContent = data.dodoCode;
+  h1.textContent = data.msg;
 });
