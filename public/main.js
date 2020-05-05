@@ -6,9 +6,17 @@ const dailyMessage = document.getElementById("dailyMessage");
 const daily = document.querySelector(".daily");
 const waitingroom = document.querySelector(".waitingroom");
 const dodoCodeShow = document.querySelector(".dodoCodeShow");
+const submitBtn = document.querySelector(".submitBtn");
 
 addBtn.addEventListener("click", function (e) {
   document.querySelector(".form").classList.toggle("visible");
+});
+
+submitBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+  let value = document.querySelector("#turnipAmount").value
+
+  socket.emit("subscribe data", value)
 });
 
 //add Island info
@@ -67,6 +75,29 @@ socket.on("turnip message", function (data) {
                 `;
   feed.insertAdjacentHTML("afterbegin", html);
 });
+
+socket.on('turnip subscription', function (data) {
+  if (data.value < data.data.turnipPrice) {
+    console.log(data)
+  }
+});
+
+
+// socket.on("turnip subscription", function (data) {
+//   console.log(data)
+//   let html = `
+//                 <div class='card'>
+//                 <div>
+//                 <li>Island : ${data.islandName}</li>
+//                 <li>Date: ${data.time}</li>
+//                 <li>Turnip price: ${data.turnipPrice}</li>
+//                 </div>
+//                 <img class="cardImg" src="${data.villagerImage}" alt="Girl in a jacket">
+//                 <button value="${data.dodoCode}" name="${data.islandName}" class="joinBtn">join room"</button>
+//                 </div>
+//                 `;
+//   feed.insertAdjacentHTML("afterbegin", html);
+// });
 
 socket.on("turnip board", function (data) {
   feed.innerHTML = "";

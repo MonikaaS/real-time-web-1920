@@ -22,6 +22,7 @@ app.get("/", function (req, res) {
 });
 
 let history = [];
+let subscribedRooms = [];
 
 const dailyMessage = ioClient(
   "https://nookipedia.com/api/today/?api_key=" + KEY
@@ -37,6 +38,11 @@ io.sockets.on("connection", function (socket) {
   console.log("someone connected");
   //socket.emit("test", "joe joe");
 
+  socket.on("subscribe data", function (value) {
+    socket.join(value)
+    pushRoom(value)
+  })
+
   fetch("https://nookipedia.com/api/today/?api_key=" + KEY)
     .then((res) => res.json())
     .then((data) => socket.emit("test", data))
@@ -44,11 +50,11 @@ io.sockets.on("connection", function (socket) {
 
   socket.on("add data", function (data) {
     fetch(
-      "https://nookipedia.com/api/villager/" +
+        "https://nookipedia.com/api/villager/" +
         data.villager +
         "/?api_key=" +
         KEY
-    )
+      )
       .then((res) => res.json())
       .then(function (data) {
         let cleanedData = {
@@ -64,8 +70,15 @@ io.sockets.on("connection", function (socket) {
       let combined = Object.assign(formData, apiData);
       getFormData(combined);
       io.emit("turnip message", combined);
+
+      subscribedRooms.forEach(function (value) {
+        socket.to(value).emit('turnip subscription', {
+          value: value,
+          data
+        })
+      })
     }
-  });
+  })
 
   socket.emit("turnip board", history);
 
@@ -118,6 +131,12 @@ io.sockets.on("connection", function (socket) {
 
 function getFormData(combined) {
   history.unshift(combined);
+}
+
+function pushRoom(value) {
+  if (!subscribedRooms.includes(value)) {
+    subscribedRooms.push(value)
+  }
 }
 
 http.listen(process.env.PORT || 3000);

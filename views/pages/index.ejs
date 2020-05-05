@@ -15,14 +15,14 @@
 <div class="flex">
     <form id="subsribe" action="/">
         <label> Subscribe to turnips above:
-          <input type="text" id="turnipAmount" autocomplete="off" required minlength="1" maxlength="10">
+          <input type="number" min="100" max="600" id="turnipAmount" autocomplete="off">
         </label>
 
         <div class="submitBtn">
         <button>Send</button>
         </div>
       </form>
-      
+
   <div class="form">
     <form id="addIsland" action="/">
       <h1>Add Island</h1>
@@ -31,7 +31,7 @@
         </label>
 
         <label> Turnip Price:
-          <input type="text" id="TurnipPrice" autocomplete="off" required minlength="1" maxlength="3">
+          <input type="number" id="TurnipPrice" autocomplete="off" required minlength="1" min="100" max="600">
         </label> 
 
         <label> Fruit Type:
