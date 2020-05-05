@@ -95,7 +95,7 @@ there's no mention about a ratelimit, but that doesn't mean you should go crazy 
 
 ## Data life cycle
 
-![met afbeelding](./public/turnip-exchange-data-life-cycle-2.png)
+![met afbeelding](./public/turnip-exchange-data-life-cycle-2.jpg)
 (life cycle moet nog worden aangepast)
 
 ## features
