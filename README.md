@@ -8,7 +8,7 @@ application where users can share their daily [turnip](https://www.gamesradar.co
 
 ![met afbeelding](./public/app-example.png)
 
-### installation
+## installation
 
 clone the repo:
 
@@ -36,7 +36,7 @@ or
 npm start
 ```
 
-### API
+## API
 
 #### [Nookipedia](https://nookipedia.com/api/)
 
@@ -93,18 +93,18 @@ example data if you request a `villager`
 
 there's no mention about a ratelimit, but that doesn't mean you should go crazy with your API calls 😅
 
-### Data life cycle
+## Data life cycle
 
 ![met afbeelding](./public/turnip-exchange-data-life-cycle-2.png)
 (life cycle moet nog worden aangepast)
 
-### features
+## features
 
 - add your island and turnip prices in one message
 - join an island waiting room and queue up to get shown a code to visit in game (at the moment only 2 people in a room can see the code)
 - track turnip prices of values you are interested in
 
-### real time events
+## real time events
 
 #### client events
 
@@ -135,7 +135,7 @@ there's no mention about a ratelimit, but that doesn't mean you should go crazy 
 - `turnip board:`
   Shows cached messages on connection
 
-### to do/Whislist
+## to do/Whislist
 
 - [x] Cache incoming messages & rooms on the server
 - [x] show messages
@@ -156,5 +156,3 @@ there's no mention about a ratelimit, but that doesn't mean you should go crazy 
 - nodefetch
 - nodemon
 - .env
-
-### sources
