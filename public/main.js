@@ -2,19 +2,32 @@ const socket = io();
 const addBtn = document.querySelector("#add");
 const addIsland = document.querySelector("#addIsland");
 const feed = document.getElementById("feed");
+const subscribedFeed = document.getElementById("subscribedFeed");
 const dailyMessage = document.getElementById("dailyMessage");
 const daily = document.querySelector(".daily");
 const waitingroom = document.querySelector(".waitingroom");
 const dodoCodeShow = document.querySelector(".dodoCodeShow");
 const submitBtn = document.querySelector(".submitBtn");
+const subscribeBtn = document.querySelector(".subscribeBtn");
+const leaveBtn = document.querySelector(".leaveBtn");
 
 addBtn.addEventListener("click", function (e) {
   document.querySelector(".form").classList.toggle("visible");
 });
 
-submitBtn.addEventListener("click", function (e) {
+subscribeBtn.addEventListener("click", function (e) {
   e.preventDefault();
   let value = document.querySelector("#turnipAmount").value
+
+  feed.style.display = "none"
+
+  document.querySelector('.show').style.display = "block"
+  subscribedFeed.style.display = "flex"
+  subscribedFeed.style.justifyContent = "start"
+  subscribedFeed.style.flexWrap = "wrap"
+
+  console.log('yo')
+  document.querySelector('.roomName').textContent = 'showing only turnips above: ' + value
 
   socket.emit("subscribe data", value)
 });
@@ -26,7 +39,8 @@ addIsland.addEventListener("submit", function (e) {
   let data = {
     islandName: document.querySelector("#IslandName").value,
     turnipPrice: document.querySelector("#TurnipPrice").value,
-    fruitType: document.querySelector("#fruit").value,
+    fruitType: document.querySelector('input[name=fruit]:checked').value,
+    hemisphere: document.querySelector('input[name=hemisphere]:checked').value,
     villager: document.querySelector("#villager").value,
     dodoCode: document.querySelector("#dodoCode").value,
     time: new Date().toLocaleString(),
@@ -43,85 +57,84 @@ addIsland.addEventListener("submit", function (e) {
 
 const joinBtn = document.querySelectorAll(".joinBtn");
 
-socket.on("test", function (data) {
+//show daily message
+socket.on("daily message", function (data) {
   console.log(data);
   let villagerimage = data.villager_images;
-  //let image;
 
-  let html = `<h2>Today's Message:</h2>
-                <p>${data.message}</p>
-                <li>${data.events}</li>`;
-  dailyMessage.insertAdjacentHTML("afterbegin", html);
+  document.querySelector("#dailySpan").innerHTML = data.message
+  document.querySelector("#dailyEvent").innerHTML = data.events
 
   villagerimage.forEach(function (data) {
     image = document.createElement("img");
     image.src = data.toString();
-    console.log(image.src);
     dailyMessage.appendChild(image);
   });
 });
 
+//show new message
 socket.on("turnip message", function (data) {
   let html = `
                 <div class='card'>
                 <div>
-                <li>Island : ${data.islandName}</li>
-                <li>Date: ${data.time}</li>
-                <li>Turnip price: ${data.turnipPrice}</li>
+                <h2 class="title">${data.islandName}</h2>
+                <span>Date: ${data.time}</span>
+                <img class="icon" src="${data.hemisphere}.png" alt="${data.hemisphere}">
+                <img class="icon" src="${data.fruitType}.png" alt="${data.fruitType}">
+                <li class="inline"><img class="icon" src="Turnip_NH_Inv_Icon.png" alt="${data.turnipPrice}"> ${data.turnipPrice} bells</li>
+                <button value="${data.dodoCode}" name="${data.islandName}" class="joinBtn">join room</button>
                 </div>
-                <img class="cardImg" src="${data.villagerImage}" alt="Girl in a jacket">
-                <button value="${data.dodoCode}" name="${data.islandName}" class="joinBtn">join room"</button>
+                <img class="cardImg" src="${data.villagerImage}" alt="">
                 </div>
                 `;
   feed.insertAdjacentHTML("afterbegin", html);
 });
 
+//show only subscribed messages
 socket.on('turnip subscription', function (data) {
   if (data.value < data.data.turnipPrice) {
-    console.log(data)
+    feed.style.display = "none"
+
+    document.querySelector('.roomName').textContent = 'showing only turnips above: ' + data.value
+    let html = `
+                 <div class='card'>
+                 <div>
+                 <li>Island : ${data.data.islandName}</li>
+                 <li>Date: ${data.data.time}</li>
+                 <li>Turnip price: ${data.data.turnipPrice}</li>
+                 </div>
+                 <img class="cardImg" src="${data.data.villagerImage}" alt="Girl in a jacket">
+                 <button value="${data.data.dodoCode}" name="${data.data.islandName}" class="joinBtn">join room"</button>
+                 </div>
+                 `;
+    subscribedFeed.insertAdjacentHTML("beforeend", html);
   }
 });
 
-
-// socket.on("turnip subscription", function (data) {
-//   console.log(data)
-//   let html = `
-//                 <div class='card'>
-//                 <div>
-//                 <li>Island : ${data.islandName}</li>
-//                 <li>Date: ${data.time}</li>
-//                 <li>Turnip price: ${data.turnipPrice}</li>
-//                 </div>
-//                 <img class="cardImg" src="${data.villagerImage}" alt="Girl in a jacket">
-//                 <button value="${data.dodoCode}" name="${data.islandName}" class="joinBtn">join room"</button>
-//                 </div>
-//                 `;
-//   feed.insertAdjacentHTML("afterbegin", html);
-// });
-
+//show old messages
 socket.on("turnip board", function (data) {
   feed.innerHTML = "";
 
-  console.log(data);
-
   data.forEach(function (data) {
     let html = `
-                <div class='card'>
-                <div>
-                <li>Island: ${data.islandName}</li>
-                <li>Date: ${data.time}</li>
-                <li>Turnip price: ${data.turnipPrice}</li>
-                </div>
-                <img class="cardImg" src="${data.villagerImage}" alt="Girl in a jacket">
-                <button value="${data.dodoCode}" name="${data.islandName}" class="joinBtn">join room</button>
-                </div>`;
+    <div class='card'>
+    <div>
+    <h2 class="title">${data.islandName}</h2>
+    <span>Date: ${data.time}</span>
+    <img class="icon" src="${data.hemisphere}.png" alt="${data.hemisphere}">
+    <img class="icon" src="${data.fruitType}.png" alt="${data.fruitType}">
+    <li class="inline"><img class="icon" src="Turnip_NH_Inv_Icon.png" alt="${data.turnipPrice}"> ${data.turnipPrice} bells</li>
+    <button value="${data.dodoCode}" name="${data.islandName}" class="joinBtn">join room</button>
+    </div>
+    <img class="cardImg" src="${data.villagerImage}" alt="">
+    </div>`;
     feed.insertAdjacentHTML("beforeend", html);
   });
 });
 
+//add dynamic rooms to created messages
 document.querySelector("body").addEventListener("click", function (event) {
   if (event.target.className === "joinBtn") {
-    console.log(event.target);
 
     socket.emit("join waiting room", {
       dodoCode: event.target.value,
@@ -130,25 +143,26 @@ document.querySelector("body").addEventListener("click", function (event) {
   }
 });
 
+//dynamic waiting room
 socket.on("waiting room", function (data) {
-  const h1 = document.createElement("h1");
   waitingroom.style.display = "block";
+  feed.style.display = "none"
   dodoCodeShow.textContent = "Please wait";
-  h1.textContent = data.name + " waiting room";
-});
+  document.querySelector('.h2WaitingRoom').textContent = data.name + " waiting room";
+  document.querySelector('.spanText').textContent = "You're currently in line for " + data.name;
 
-socket.on("dodocode room", function (data) {
-  const h1 = document.createElement("h1");
-  const leaveBtn = document.createElement("button");
-  waitingroom.style.display = "block";
-  dodoCodeShow.textContent = data.dodoCode;
-  h1.textContent = data.name;
-  leaveBtn.textContent = "leave room";
-  leaveBtn.className = "leave button";
-
-  waitingroom.appendChild(h1);
-  waitingroom.appendChild(leaveBtn);
   leaveBtn.addEventListener("click", function (event) {
+    console.log('waiting room')
+    event.preventDefault()
     socket.emit("leave room", data);
   });
+});
+
+//dynamic island room
+socket.on("dodocode room", function (data) {
+  waitingroom.style.display = "block";
+  feed.style.display = "none"
+  dodoCodeShow.textContent = "Room name: " + data.name;
+  document.querySelector('.h2WaitingRoom').textContent = "dodo code: " + data.dodoCode;
+  document.querySelector('.spanText').textContent = "please leave the room when you're done";
 });

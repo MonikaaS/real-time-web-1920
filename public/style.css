@@ -9,43 +9,72 @@
 }
 
 body {
-  background-color: aquamarine;
+  background: linear-gradient(180deg,
+      rgba(127, 255, 212, 1) 0%,
+      rgba(255, 255, 255, 1) 30%);
+
   font-family: "Baloo Bhaina 2", cursive;
 }
 
 h1 {
   text-align: center;
   color: rgb(58, 86, 248);
+  word-wrap: break-word;
+  font-size: 4em;
   font-family: "FinkHeavy", serif;
-  margin: 1em;
+  margin-top: 1em;
 }
 
 .flex {
   display: flex;
   justify-content: center;
+  margin-bottom: 2em;
 }
 
 h2 {
   color: rgb(58, 86, 248);
   font-family: "FinkHeavy", serif;
+  text-align: center;
+  font-size: 2em;
+  margin-top: 0.5em;
+  margin-bottom: 0.2em;
+}
+
+.title {
+  border-bottom: 2px dashed rgb(58, 86, 248);
+  margin-bottom: 0.2em;
+}
+
+span {
+  text-align: center;
+  font-size: 0.8em;
+  margin-bottom: 1em;
+  display: inline-block;
+  width: 100%;
 }
 
 li {
-  margin-top: 4px;
   list-style: none;
+  text-align: center;
+  display: block;
+  padding-right: 5px;
 }
 
-/* #addUsername {
-    top: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-color: aquamarine;
-    padding-top: 20%;
-    text-align: center;
-} */
+.inline {
+  display: inline;
+  padding-right: 0;
+}
+
 header {
   margin-bottom: 2em;
+}
+
+.show {
+  display: none;
+}
+
+#subscribedFeed {
+  display: none;
 }
 
 .card {
@@ -55,22 +84,35 @@ header {
   width: 18em;
   height: 10em;
   border-radius: 5px;
-  margin: 1em;
+  margin-top: 1em;
+  margin-left: 2em;
+  margin-right: 2em;
+  margin-bottom: 1em;
   padding: 1em;
+  border: solid 10px rgb(160, 240, 213);
+  box-shadow: -1px 15px 30px -12px rgba(0, 0, 0, 0.274);
 }
 
 .cardImg {
-  margin-left: 3.5em;
   display: inline-block;
-  height: 60%;
+  height: 80%;
+  width: auto;
+  margin-left: 3em;
 }
 
-.card > div {
-  display: inline;
-  padding-bottom: 0;
+.icon {
+  width: 21%;
 }
+
+.card>div {
+  width: 45%;
+  font-size: 0.6em;
+  padding-bottom: 0;
+  display: inline;
+}
+
 .form {
-  background-color: oldlace;
+  background-color: white;
   display: flex;
   justify-content: center;
   width: 50%;
@@ -78,9 +120,11 @@ header {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.4s ease-out;
+  border: solid 5px rgb(160, 240, 213);
 }
 
 .visible {
+  border: solid 10px aquamarine;
   width: 50%;
   margin: auto;
   display: flex;
@@ -90,29 +134,28 @@ header {
   transition: max-height 0.6s ease-in;
 }
 
-label.input[type="radio"]:checked ~ div.form {
-  display: block;
+.formDiv {
+  margin-left: 6em;
 }
 
 label {
   display: block;
   width: 50%;
-  margin-left: 18%;
 }
 
 #dailyMessage {
-  position: sticky;
   top: 0em;
   left: -10em;
-  background-color: moccasin;
+  background-color: rgb(255, 255, 255);
+  border: solid 10px rgb(247, 230, 174);
   width: 15em;
   border-radius: 5px;
   margin: 1em;
   padding: 1em;
 }
 
-#dailyMessage > img {
-  width: 30%;
+#dailyMessage>img {
+  width: 35%;
   margin: 1em;
   display: inline-block;
 }
@@ -121,14 +164,18 @@ label {
   display: flex;
   justify-content: start;
   flex-wrap: wrap;
+  align-content: flex-start;
+  margin-left: 4em;
 }
 
-.flex {
-  display: flex;
-  justify-content: center;
+.roomName {
+  display: inline;
+  text-align: center;
+  margin-left: 3em;
 }
 
 .flex2 {
+  margin-top: 3em;
   display: flex;
   justify-content: start;
 }
@@ -139,6 +186,36 @@ label {
   margin-top: 1em;
   margin-bottom: 1em;
   text-align: center;
+}
+
+.leaveBtn {
+  display: inline-block;
+  background-color: white;
+  color: rgb(58, 86, 248);
+  border: 2px solid rgb(58, 86, 248);
+}
+
+.leaveBtn:hover {
+  background-color: rgb(58, 86, 248);
+  color: rgb(255, 255, 255);
+}
+
+#subscribe {
+  top: 0em;
+  left: -10em;
+  width: 15em;
+  border-radius: 5px;
+  margin: 1em;
+  padding: 1em;
+  padding-bottom: 0.1em;
+  border: solid 10px rgb(247, 230, 174);
+  background-color: white;
+}
+
+.subscribeBtn {
+  width: 50%;
+  margin: auto;
+  padding: 1px;
 }
 
 .joinBtn {
@@ -152,7 +229,6 @@ button {
   border-radius: 30px;
   padding: 10px 0;
   margin: 1em;
-  text-align: center;
   color: #fff;
   font-weight: bold;
   height: 40px;
@@ -166,10 +242,23 @@ button:active {
   background-color: rgb(119, 136, 233);
 }
 
-input[type="text"],
-#m {
+input[type="text"] {
   display: inline-block;
-  width: 250px;
+  width: 200px;
+  height: 40px;
+  box-sizing: border-box;
+  outline: none;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  padding: 20px;
+  transition: all 0.1s ease-out;
+  margin-bottom: 1em;
+}
+
+input[type="number"] {
+  padding-left: 20px !important;
+  display: inline-block;
+  width: 6em;
   height: 40px;
   box-sizing: border-box;
   outline: none;
@@ -177,8 +266,64 @@ input[type="text"],
   border-radius: 3px;
   padding: 10px 10px 10px 100px;
   transition: all 0.1s ease-out;
+  margin-bottom: 1em;
+}
+
+input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+[type="radio"]+img {
+  cursor: pointer;
+}
+
+input[type="radio"]:checked+img {
+  outline: 2px solid aquamarine;
+}
+
+.fruit>img {
+  width: 2.5em;
+}
+
+.fruit {
+  width: 2em;
+  margin: 0.2em;
+}
+
+.flex3 {
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+}
+
+#turnipAmount {
+  width: 6em;
+  display: block;
+  margin: auto;
+}
+
+.amount {
+  text-align: center;
+  width: 100%;
 }
 
 .waitingroom {
   display: none;
+  width: 50%;
+  margin-left: 3em;
+  height: 70%;
+  padding: 3em;
+  border: solid 10px rgb(160, 240, 213);
+}
+
+.waitingroom>span {
+  text-align: center;
+}
+
+.dodoCodeShow,
+.h2WaitingRoom {
+  text-align: center;
 }

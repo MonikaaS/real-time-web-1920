@@ -5,37 +5,68 @@
 </head>
 
 <header>
-<h1>Animal Crossing Turnip Exchange</h1>
+<h1>Animal Crossing</h1>
+<h2>Turnip Exchange</h2>
 
-<div class="flex">
+</header>
+<div class="flex">   
  <button id="add">add island</button>
 </div>
 
-</header>
 <div class="flex">
-    <form id="subsribe" action="/">
-        <label> Subscribe to turnips above:
-          <input type="number" min="100" max="600" id="turnipAmount" autocomplete="off">
-        </label>
-
-        <div class="submitBtn">
-        <button>Send</button>
-        </div>
-      </form>
-
   <div class="form">
     <form id="addIsland" action="/">
-      <h1>Add Island</h1>
+<h2>Add Island</h2>
+
+<div class="flex">
+    <div class="formDiv">
         <label> Island name:
           <input type="text" id="IslandName" autocomplete="off" required minlength="1" maxlength="10">
         </label>
 
         <label> Turnip Price:
           <input type="number" id="TurnipPrice" autocomplete="off" required minlength="1" min="100" max="600">
+          <span> *between 100 - 600</span>
         </label> 
 
         <label> Fruit Type:
-          <input type="text" id="fruit" autocomplete="off" required minlength="1" maxlength="10">
+        <div class="flex3">
+        <label class="fruit">
+          <input type="radio" name="fruit" value="peach" checked>
+          <img class="icon" src="peach.png">
+          </label>
+          <label class="fruit">
+          <input type="radio" name="fruit" value="orange">
+          <img class="icon" src="orange.png">
+          </label >
+          <label class="fruit">
+          <input type="radio" name="fruit" value="apple">
+           <img class="icon" src="apple.png">
+          </label>
+          <label class="fruit">
+           <input type="radio" name="fruit" value="pear">
+           <img class="icon" src="pear.png">
+           </label>
+           <label class="fruit">
+           <input type="radio" name="fruit" value="cherry">
+           <img class="icon" src="cherry.png">
+           </label>
+           </div>
+        </label> 
+
+        </div>
+        <div class="formDiv">
+        <label> Hemisphere:
+        <div class="flex3">
+        <label class="fruit">
+          <input type="radio" name="hemisphere" value="north" checked>
+          <img class="icon" src="north.png">
+          </label>
+          <label class="fruit">
+          <input type="radio" name="hemisphere" value="south">
+          <img class="icon" src="south.png">
+          </label >
+           </div>
         </label> 
 
         <label> Favorite Villager:
@@ -45,24 +76,54 @@
         <label> Dodo code:
           <input type="text" id="dodoCode" autocomplete="off" required minlength="5" maxlength="5">
         </label> 
+        </div>
+        </div>
         <div class="submitBtn">
         <button>Send</button>
         </div>
+        </div>
       </form>
   </div>
-  </div>
-
+</div>
+  
 <div class="flex2">
+<div>
+<form id="subscribe" action="/">
+<h2>Track turnips</h2>
+        <label class="amount"> Subscribe to turnips above a certain value
+          <input type="number" min="100" max="600" id="turnipAmount" autocomplete="off">
+          <span>*between 100-600</span>
+        </label>
+
+        <div class="subscribeBtn">
+        <button>track</button>
+        </div>
+</form>
+
   <div id="dailyMessage"> 
+  <h2>dailyMessage</h2>
+  <span id="dailySpan"></span>
+  <li id="dailyEvent"></li>
   </div>
+</div>
 
   <div id="feed">
   </div>
 
-  </div>
+<div class="show">
+<button class="leaveTrack" onclick="location.href='/'">cancel tracking</button>
+<h2 class="roomName"></h2>
 
-  <div class="waitingroom">
+<div id="subscribedFeed">
+</div>
+</div>
+
+<div class="waitingroom">
+  <button class="leaveBtn" onclick="location.href='/'" >leave</button>
     <h1 class="dodoCodeShow"></h1>
+    <h2 class="h2WaitingRoom"></h2>
+    <span class="spanText"></span>
+  </div>
   </div>
 
 <script src="/socket.io/socket.io.js"></script>
