@@ -6,7 +6,7 @@
 
 application where users can share their daily [turnip](https://www.gamesradar.com/animal-crossing-new-horizons-turnips/) prices from Animal crossing new horizons. Users who are looking to sell their turnips for a good price can join a waiting room to queue up to visit an island.
 
-![met afbeelding](./public/app-example.png)
+![met afbeelding](./public/app.png)
 
 ## installation
 
