@@ -156,7 +156,8 @@ label {
 
 #dailyMessage>img {
   width: 35%;
-  margin: 1em;
+  margin-left: 30%;
+  margin-right: 40%;
   display: inline-block;
 }
 
