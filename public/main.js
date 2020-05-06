@@ -79,9 +79,9 @@ socket.on("turnip message", function (data) {
                 <div>
                 <h2 class="title">${data.islandName}</h2>
                 <span>Date: ${data.time}</span>
-                <img class="icon" src="${data.hemisphere}.png" alt="${data.hemisphere}">
-                <img class="icon" src="${data.fruitType}.png" alt="${data.fruitType}">
-                <li class="inline"><img class="icon" src="Turnip_NH_Inv_Icon.png" alt="${data.turnipPrice}"> ${data.turnipPrice} bells</li>
+                <img class="icon" src="./images/${data.hemisphere}.png" alt="${data.hemisphere}">
+                <img class="icon" src="./images/${data.fruitType}.png" alt="${data.fruitType}">
+                <li class="inline"><img class="icon" src="./images/Turnip_NH_Inv_Icon.png" alt="${data.turnipPrice}"> ${data.turnipPrice} bells</li>
                 <button value="${data.dodoCode}" name="${data.islandName}" class="joinBtn">join room</button>
                 </div>
                 <img class="cardImg" src="${data.villagerImage}" alt="">
@@ -101,9 +101,9 @@ socket.on('turnip subscription', function (data) {
     <div>
     <h2 class="title">${data.data.islandName}</h2>
     <span>Date: ${data.data.time}</span>
-    <img class="icon" src="${data.data.hemisphere}.png" alt="${data.data.hemisphere}">
-    <img class="icon" src="${data.data.fruitType}.png" alt="${data.data.fruitType}">
-    <li class="inline"><img class="icon" src="Turnip_NH_Inv_Icon.png" alt="${data.turnipPrice}"> ${data.turnipPrice} bells</li>
+    <img class="icon" src="./images/${data.data.hemisphere}.png" alt="${data.data.hemisphere}">
+    <img class="icon" src="./images/${data.data.fruitType}.png" alt="${data.data.fruitType}">
+    <li class="inline"><img class="icon" src="./images/Turnip_NH_Inv_Icon.png" alt="${data.data.turnipPrice}"> ${data.data.turnipPrice} bells</li>
     <button value="${data.data.dodoCode}" name="${data.data.islandName}" class="joinBtn">join room</button>
     </div>
     <img class="cardImg" src="${data.data.villagerImage}" alt="">
@@ -123,9 +123,9 @@ socket.on("turnip board", function (data) {
     <div>
     <h2 class="title">${data.islandName}</h2>
     <span>Date: ${data.time}</span>
-    <img class="icon" src="${data.hemisphere}.png" alt="${data.hemisphere}">
-    <img class="icon" src="${data.fruitType}.png" alt="${data.fruitType}">
-    <li class="inline"><img class="icon" src="Turnip_NH_Inv_Icon.png" alt="${data.turnipPrice}"> ${data.turnipPrice} bells</li>
+    <img class="icon" src="./images/${data.hemisphere}.png" alt="${data.hemisphere}">
+    <img class="icon" src="./images/${data.fruitType}.png" alt="${data.fruitType}">
+    <li class="inline"><img class="icon" src="./images/turnip_NH_Inv_Icon.png" alt="${data.turnipPrice}"> ${data.turnipPrice} bells</li>
     <button value="${data.dodoCode}" name="${data.islandName}" class="joinBtn">join room</button>
     </div>
     <img class="cardImg" src="${data.villagerImage}" alt="">
