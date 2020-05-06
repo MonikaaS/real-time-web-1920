@@ -140,6 +140,7 @@ there's no mention about a ratelimit, but that doesn't mean you should go crazy 
 - [x] Cache incoming messages & rooms on the server
 - [x] show messages
 - [x] api implementation
+- [ ] error handling
 - [ ] users can add their 6 villagers living on their island
 - [x] waiting rooms and get queued to the code
 - [ ] implementation where the creator can choose how many users at a time can join their room (currently it's 2)
