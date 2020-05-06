@@ -147,7 +147,7 @@ there's no mention about a ratelimit, but that doesn't mean you should go crazy 
 - [x] subscribe on turnip price
 - [ ] database implementation
 - [ ] opvote system, so that users can know if someone is legit or not
-- [ ] fix bug where last person leaves room and at the exact moment a person from the queue can join the room, crashes the server
+- [ ] fix bug where if the last person leaves the island room, no one from the waiting room can't join
 - [ ] show in waiting room how many people are in the queue in front of them
 
 ### tech

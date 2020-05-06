@@ -87,6 +87,7 @@ io.sockets.on("connection", function (socket) {
   socket.on("dodocode room", function (data) {
     let room = data.dodoCode + "showcode";
     socket.join(room);
+
     io.sockets.in(room).emit("dodocode room", data);
   });
 
@@ -102,11 +103,13 @@ io.sockets.on("connection", function (socket) {
     }
 
     // if there is less then 3 people in the island room, first user in array leaves waiting room and joins island room
-    if (io.sockets.adapter.rooms[room + "showcode"].length < 3) {
-      clients[0].leave(data.dodoCode);
-      clients[0].join(data.dodoCode + "showcode");
+    if (io.sockets.adapter.rooms[room + "showcode"] != undefined) {
+      if (io.sockets.adapter.rooms[room + "showcode"].length < 3) {
+        clients[0].leave(data.dodoCode);
+        clients[0].join(data.dodoCode + "showcode");
 
-      io.sockets.in(room + "showcode").emit("dodocode room", data);
+        io.sockets.in(room + "showcode").emit("dodocode room", data);
+      }
     }
   });
 
@@ -121,11 +124,13 @@ io.sockets.on("connection", function (socket) {
         clients.push(io.sockets.adapter.nsp.connected[i]);
       }
 
-      if (io.sockets.adapter.rooms[data.dodoCode + "showcode"].length < 3) {
-        clients[0].leave(data.dodoCode);
-        clients[0].join(data.dodoCode + "showcode");
+      if (io.sockets.adapter.rooms[data.dodoCode + "showcode"] != undefined) {
+        if (io.sockets.adapter.rooms[data.dodoCode + "showcode"].length < 3) {
+          clients[0].leave(data.dodoCode);
+          clients[0].join(data.dodoCode + "showcode");
 
-        io.sockets.in(data.dodoCode + "showcode").emit("dodocode room", data);
+          io.sockets.in(data.dodoCode + "showcode").emit("dodocode room", data);
+        }
       }
     }
   });
@@ -146,5 +151,6 @@ function pushRoom(value) {
     subscribedRooms.push(value)
   }
 }
+
 
 http.listen(process.env.PORT || 3000);

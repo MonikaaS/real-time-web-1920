@@ -97,17 +97,19 @@ socket.on('turnip subscription', function (data) {
 
     document.querySelector('.roomName').textContent = 'showing only turnips above: ' + data.value
     let html = `
-                 <div class='card'>
-                 <div>
-                 <li>Island : ${data.data.islandName}</li>
-                 <li>Date: ${data.data.time}</li>
-                 <li>Turnip price: ${data.data.turnipPrice}</li>
-                 </div>
-                 <img class="cardImg" src="${data.data.villagerImage}" alt="Girl in a jacket">
-                 <button value="${data.data.dodoCode}" name="${data.data.islandName}" class="joinBtn">join room"</button>
-                 </div>
+    <div class='card'>
+    <div>
+    <h2 class="title">${data.data.islandName}</h2>
+    <span>Date: ${data.data.time}</span>
+    <img class="icon" src="${data.data.hemisphere}.png" alt="${data.data.hemisphere}">
+    <img class="icon" src="${data.data.fruitType}.png" alt="${data.data.fruitType}">
+    <li class="inline"><img class="icon" src="Turnip_NH_Inv_Icon.png" alt="${data.turnipPrice}"> ${data.turnipPrice} bells</li>
+    <button value="${data.data.dodoCode}" name="${data.data.islandName}" class="joinBtn">join room</button>
+    </div>
+    <img class="cardImg" src="${data.data.villagerImage}" alt="">
+    </div>
                  `;
-    subscribedFeed.insertAdjacentHTML("beforeend", html);
+    subscribedFeed.insertAdjacentHTML("afterbegin", html);
   }
 });
 
@@ -147,6 +149,7 @@ document.querySelector("body").addEventListener("click", function (event) {
 socket.on("waiting room", function (data) {
   waitingroom.style.display = "block";
   feed.style.display = "none"
+  document.querySelector(".show").style.display = "none"
   dodoCodeShow.textContent = "Please wait";
   document.querySelector('.h2WaitingRoom').textContent = data.name + " waiting room";
   document.querySelector('.spanText').textContent = "You're currently in line for " + data.name;
