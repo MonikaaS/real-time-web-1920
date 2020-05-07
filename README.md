@@ -108,7 +108,7 @@ there's no mention about a ratelimit, but that doesn't mean you should go crazy 
 #### client events
 
 - `add data`
-  user adds fills in their island info and submits, api gets called. Form data & api data get's combined. The combined data get's shown to the user and pushed in to an array.
+  user adds their island info
 
 - `subscribe data:`
   user subscribes to a turnip value and get shown only message above a certain value
@@ -129,7 +129,7 @@ there's no mention about a ratelimit, but that doesn't mean you should go crazy 
 - `turnip message:`
   when a user adds data, it get's cleaned up on the server and then send to the client as a message
 - `island room code:`
-  If there's less than 4 people in the room, a user from the waiting room gets pushed into this one and leaves the other
+  If there's less than 3 people in the room, a user from the waiting room gets pushed into this one and leaves the other
 
 - `turnip board:`
   Shows cached messages on connection
